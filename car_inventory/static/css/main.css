@@ -1,0 +1,11 @@
+.shop-header {
+    background-image: url("../images/car-wallpapers.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 1200px;
+    color: white; 
+}
+
+.shop-stats {
+    color: white; 
+}
