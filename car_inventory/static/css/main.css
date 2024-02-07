@@ -1,10 +1,15 @@
 .shop-header {
     background-image: url("../images/car-wallpapers.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
-    height: 1200px;
+    height: 1000px;
     color: white; 
 }
+
+
+.navbar a:hover {
+    color: #03215a;
+}
+
 
 .shop-stats {
     color: white; 

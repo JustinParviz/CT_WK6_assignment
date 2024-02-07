@@ -1,30 +1,42 @@
+
 <nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand link-light" href="/">Justin's Exotic Car Inventory</a>
-      <button class="navbar-toggler" type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarNav" 
-      aria-controls="navbarNav" 
-      aria-expanded="false" 
-      aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav link-light">
-          <li class="nav-item">
-            <a class="nav-link link-light" aria-current="page" href="/">Inventory</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link link-light" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link link-light" href="#">Register</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+        <a class="navbar-brand link-light" href="/">Justin's Exotic Car Inventory</a>
+        
+        <!-- Collapsible button for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Search Box and Search Button -->
+        <div class="d-flex justify-content-center align-items-center flex-grow-1">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+        
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav link-light">
+                <li class="nav-item">
+                    <a class="nav-link link-light" aria-current="page" href="/">Inventory</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/signin">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-light" href="/signup">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
     </div>
-  </nav>
+</nav>
