@@ -1,3 +1,4 @@
 .env
 car_inventory_env
 __pycache__
+image_cache
