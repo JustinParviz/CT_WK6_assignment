@@ -2,8 +2,8 @@ from flask import Blueprint, flash, redirect, render_template, request
 
 
 #internal import 
-from car_inventory.models import Car, db 
-from car_inventory.forms import ProductForm
+from car_inventory.models import Car, Customer, Order, db 
+from car_inventory.forms import CarForm
 
 
 #need to instantiate our Blueprint class
@@ -17,10 +17,21 @@ def shop():
 
     #we need to query our database to grab all of our products to display
     allprods = Car.query.all() #the same as SELECT * FROM products, list of objects 
+    allcustomers = Customer.query.all()
+    allorders = Order.query.all()
+    
+    #making our dictionary for our shop stats/info
 
+    shop_stats = {
+        'products' : len(allprods), #this is how many total products we have
+        'sales' : sum([order.order_total for order in allorders]),  #[ 27.99, 83.25, 50.99 ] sum them bad boys up
+        'customers' : len(allcustomers)
+    }
+    
+    
     our_class = "Justin's inventory is the best "
                             #whats on left side is html, right side is whats in our route
-    return render_template('shop.html', shop=allprods, coolmessage = our_class ) #looking inside our template_folder (site_templates) to find our shop.html file
+    return render_template('shop.html', shop=allprods, coolmessage = our_class, stats=shop_stats) #looking inside our template_folder (site_templates) to find our shop.html file
 
 
 
@@ -29,7 +40,7 @@ def create():
 
     #instantiate our productform
 
-    createform = ProductForm()
+    createform = CarForm()
 
     if request.method == 'POST' and createform.validate_on_submit():
         #grab our data from our form
@@ -67,7 +78,7 @@ def update(id):
     #lets grab our specific product we want to update
     car = Car.query.get(id) #this should only ever bring back 1 item/object
     
-    updateform = ProductForm()
+    updateform = CarForm()
 
     if request.method == 'POST' and updateform.validate_on_submit():
 
