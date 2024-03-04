@@ -1,7 +1,8 @@
 .shop-header {
-    background-image: url("../images/car-wallpapers.jpg");
+    background-image: url("../images/car-wallpapers\ v_10.jpg");
     background-size: cover;
-    height: 1000px;
+    height: 700px;
+    background-position: center;
     color: white; 
 }
 

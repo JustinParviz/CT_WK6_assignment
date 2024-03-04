@@ -67,22 +67,22 @@ class User(db.Model, UserMixin):
     
 
 class Car(db.Model): #db.Model helps us translate python code to columns in SQL 
-    prod_id = db.Column(db.String, primary_key=True)
+    car_id = db.Column(db.String, primary_key=True)
     make = db.Column(db.String(50), nullable=False)
     model = db.Column(db.String(50), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     color = db.Column(db.String(50), nullable=False)
-    horsepower =db.Column(db.String(50), nullable=False)
+    horsepower =db.Column(db.String(50), nullable=True)
     image = db.Column(db.String)
     description = db.Column(db.String(200))
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     date_added = db.Column(db.DateTime, default = datetime.utcnow)
-    prodord = db.relationship('ProdOrder', backref = 'product', lazy=True) # establishing relationship between ProdOrder & Product table
+    prodord = db.relationship('ProdOrder', backref = 'car', lazy=True) # establishing relationship between ProdOrder & Product table
 
 
-    def __init__(self, make, model, year, color, horsepower, price, quantity, image="", description=""):
-        self.prod_id = self.set_id()
+    def __init__(self, make, model, year, color, price, quantity, horsepower="", image="", description=""):
+        self.car_id = self.set_id()
         self.make = make
         self.model = model
         self.year = year
@@ -187,7 +187,7 @@ class ProdOrder(db.Model):
     # CREATE TABLE
     prodorder_id = db.Column(db.String, primary_key=True)
     #first instance of using a primary key as a foreign key on THIS table
-    prod_id = db.Column(db.String, db.ForeignKey('product.prod_id'), nullable=False)
+    car_id = db.Column(db.String, db.ForeignKey('car.car_id'), nullable=False)
     quantity = db.Column(db.Integer, nullable = False)
     price = db.Column(db.Numeric(precision = 10, scale = 2), nullable = False)
     order_id = db.Column(db.String, db.ForeignKey('order.order_id'), nullable = False)
@@ -195,9 +195,9 @@ class ProdOrder(db.Model):
 
 
     # INSERT INTO
-    def __init__(self, prod_id, quantity, price, order_id, cust_id):
+    def __init__(self, car_id, quantity, price, order_id, cust_id):
         self.prodorder_id = self.set_id()
-        self.prod_id = prod_id 
+        self.car_id = car_id 
         self.quantity = quantity #how much quantity of that product we want to purchase
         self.price = self.set_price(quantity, price) #so price PER product 
         self.order_id = order_id
@@ -239,7 +239,7 @@ class ProdOrder(db.Model):
 class ProductSchema(ma.Schema):
 
     class Meta:
-        fields = ['prod_id', 'make', 'model', 'year', 'color', 'horsepower', 'image', 'description', 'price', 'quantity']
+        fields = ['car_id', 'make', 'model', 'year', 'color', 'horsepower', 'image', 'description', 'price', 'quantity']
 
 
 

@@ -56,7 +56,8 @@ def create():
 
         #instantiate that class as an object passing in our arguments to replace our parameters 
         
-        car = Car(make, model, year, color, horsepower, price, quantity, image, description)
+        car = Car(make, model, year, color, price, quantity, horsepower, image, description)
+        print(car)
 
         db.session.add(car) #adding our new instantiating object to our database
         db.session.commit()
@@ -66,7 +67,18 @@ def create():
     
     elif request.method == 'POST':
         flash("We were unable to process your request", category='warning')
-        return redirect('/inventory/create')
+        make = createform.make.data
+        model = createform.model.data
+        year = createform.year.data
+        color = createform.color.data
+        horsepower = createform.horsepower.data
+        image = createform.image.data
+        description = createform.description.data
+        price = createform.price.data
+        quantity = createform.quantity.data 
+
+        print(make, model, year, color, "horsepower", horsepower, "image", image, "description", description, price, quantity)
+        return redirect('/shop/create')
     
 
     return render_template('create.html', form=createform )
@@ -105,7 +117,7 @@ def update(id):
     return render_template('update.html', form=updateform, car=car )
 
 
-@site.route('/inventory/delete/<id>')
+@site.route('/shop/delete/<id>')
 def delete(id):
 
     #query our database to find that object we want to delete

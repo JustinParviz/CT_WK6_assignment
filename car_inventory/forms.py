@@ -24,7 +24,7 @@ class CarForm(FlaskForm):
     model = StringField('Model', validators=[ DataRequired() ] )
     year = IntegerField('Year', validators=[ DataRequired() ])
     color = StringField('Color', validators=[ DataRequired() ] )
-    horsepower = IntegerField('Horsepower **Optional')
+    horsepower = StringField('Horsepower **Optional')
     image = StringField('Img url **Optional')
     description = StringField('Description **Optional')
     price = DecimalField('Price', validators=[ DataRequired() ])
